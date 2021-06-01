@@ -66,14 +66,16 @@
             android:text="@string/languages"
             android:textColor="@color/title_color"
             android:textSize="@dimen/sp_13"
-            android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_country_details" />
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_country_langs"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_language_title"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_language_title"
+            app:layout_constraintLeft_toRightOf="parent"
+            android:layout_marginTop="@dimen/dp_5"
             app:singleLine="true">
 
             <!-- Chips can be declared here, or added dynamically. -->

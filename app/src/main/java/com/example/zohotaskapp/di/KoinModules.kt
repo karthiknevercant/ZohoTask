@@ -1,13 +1,18 @@
 package com.example.zohotaskapp.di
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.example.zohotaskapp.AppConstants
-import com.example.zohotaskapp.BuildConfig.DEBUG
 import com.example.zohotaskapp.api.CountryApi
+import com.example.zohotaskapp.database.CountryDao
+import com.example.zohotaskapp.database.CountryDatabase
 import com.example.zohotaskapp.modules.countries.CountriesRepositary
 import com.example.zohotaskapp.modules.countries.CountriesViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.BuildConfig.DEBUG
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,21 +30,21 @@ val apiModule = module {
     single { provideCountrytApi(get()) }
 }
 
-//val databaseModule = module {
-//
-//    fun provideDatabase(application: Application): CountryDatabase {
-//        return Room.databaseBuilder(application, CountryDatabase::class.java, "countries")
-//            .fallbackToDestructiveMigration()
-//            .build()
-//    }
-//
-//    fun provideCountriesDao(database: CountryDatabase): CountryDao {
-//        return  database.countriesDao
-//    }
-//
-//    single { provideDatabase(androidApplication()) }
-//    single { provideCountriesDao(get()) }
-//}
+val databaseModule = module {
+
+    fun provideDatabase(application: Application): CountryDatabase {
+        return Room.databaseBuilder(application, CountryDatabase::class.java, CountryDatabase.NAME)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    fun provideCountriesDao(database: CountryDatabase): CountryDao {
+        return  database.countriesDao
+    }
+
+    single { provideDatabase(androidApplication()) }
+    single { provideCountriesDao(get()) }
+}
 
 val networkModule = module {
     val connectTimeout : Long = 40// 20s
@@ -71,14 +76,15 @@ val networkModule = module {
     single {
         provideRetrofit(get(), AppConstants.BASE_URL)
     }
+
     single { provideHttpClient() }
 }
 
 val repositoryModule = module {
-    fun provideCountryRepository(api: CountryApi, context: Context): CountriesRepositary {
-        return CountriesRepositary.CountriesRepositaryImpl(api, context)
+    fun provideCountryRepository(api: CountryApi, context: Context,  dao : CountryDao): CountriesRepositary {
+        return CountriesRepositary.CountriesRepositaryImpl(api, context, dao)
     }
-    single { provideCountryRepository(get(), androidContext()) }
+    single { provideCountryRepository(get(), androidContext(), get()) }
 }
 
 val viewModelModule = module {

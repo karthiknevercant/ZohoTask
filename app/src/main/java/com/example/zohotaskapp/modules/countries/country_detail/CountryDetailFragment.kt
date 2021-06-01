@@ -9,6 +9,7 @@ import com.example.zohotaskapp.R
 import com.example.zohotaskapp.databinding.CountryDetailFragmentBinding
 import com.example.zohotaskapp.model.CountryItem
 import com.example.zohotaskapp.utils.loadSvg
+import com.google.android.material.chip.Chip
 
 class CountryDetailFragment : BaseFragment() {
 
@@ -56,6 +57,7 @@ class CountryDetailFragment : BaseFragment() {
         countryDetail?.flag?.let {
             binding.imgvCountry.loadSvg(it)
         }
+
         countryDetailsMap = mapOf(
             getString(R.string.short_code) to countryDetail?.alpha3Code,
             getString(R.string.capital) to countryDetail?.capital,
@@ -66,13 +68,11 @@ class CountryDetailFragment : BaseFragment() {
         val adapter = CountryDetailAdapter(countryDetailsMap)
         binding.rvCountryDetails.adapter = adapter
 
-        //        binding.rvCountryLangs.adapter = LanguageAdapter(langs)
-
-//        countryDetail.languages?.forEach { lang ->
-//            val chip = Chip(binding.root.context)
-//            chip.text = lang.name
-//            binding.chipGroupCountryLangs.addView(chip)
-//        }
+        countryDetail?.languages?.forEach { lang ->
+            val chip = Chip(binding.root.context)
+            chip.text = lang.name
+            binding.chipGroupCountryLangs.addView(chip)
+        }
     }
 
     override fun onDestroy() {

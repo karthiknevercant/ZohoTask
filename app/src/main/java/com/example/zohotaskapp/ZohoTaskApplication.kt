@@ -1,10 +1,7 @@
 package com.example.zohotaskapp
 
 import android.app.Application
-import com.example.zohotaskapp.di.apiModule
-import com.example.zohotaskapp.di.networkModule
-import com.example.zohotaskapp.di.repositoryModule
-import com.example.zohotaskapp.di.viewModelModule
+import com.example.zohotaskapp.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,6 +16,7 @@ class ZohoTaskApplication : Application() {
             modules(
                 networkModule,
                 apiModule,
+                databaseModule,
                 repositoryModule,
                 viewModelModule
             )
