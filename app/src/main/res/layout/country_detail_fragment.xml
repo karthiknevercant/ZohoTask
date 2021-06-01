@@ -8,35 +8,52 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/ll_top"
+        <View
+            android:id="@+id/view_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-30dp"
             android:background="@color/country_img_bg_color"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toTopOf="@+id/rv_country_details"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginBottom="-20dp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_country_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_25"
-                android:gravity="center_horizontal"
-                android:maxLines="4"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_15"
-                android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_country_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_15"
+            android:gravity="center_horizontal"
+            android:maxLines="4"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/cl_view"
+            app:layout_constraintRight_toRightOf="@+id/cl_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_country_name">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cv_imgv"
                 android:layout_width="@dimen/dp_152"
                 android:layout_height="@dimen/dp_152"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginVertical="@dimen/dp_25"
                 android:layout_marginBottom="@dimen/dp_25"
-                app:cardCornerRadius="@dimen/dp_152">
+                app:cardCornerRadius="@dimen/dp_152"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgv_country"
@@ -44,8 +61,47 @@
                     android:layout_height="@dimen/dp_152"
                     android:layout_gravity="center_horizontal"
                     android:scaleType="centerCrop" />
+
             </androidx.cardview.widget.CardView>
-        </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weather_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:singleLine="true"
+                android:text="@string/weather"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_13"
+                android:visibility="invisible"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_weather"
+                app:layout_constraintTop_toTopOf="@+id/cv_imgv" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weather"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_3"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_30"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/cv_imgv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_weather_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weather_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_15"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_weather"
+                app:layout_constraintTop_toBottomOf="@+id/tv_weather" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_country_details"
@@ -53,7 +109,7 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/ll_top"
+            app:layout_constraintTop_toBottomOf="@id/cl_view"
             tools:itemCount="2"
             tools:listitem="@layout/country_detail_item_layout" />
 
@@ -68,18 +124,15 @@
             android:textSize="@dimen/sp_13"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_country_details" />
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_country_langs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_language_title"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_language_title"
-            app:layout_constraintLeft_toRightOf="parent"
             android:layout_marginTop="@dimen/dp_5"
-            app:singleLine="true">
-
-            <!-- Chips can be declared here, or added dynamically. -->
-
-        </com.google.android.material.chip.ChipGroup>
+            app:layout_constraintLeft_toLeftOf="@+id/tv_language_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_language_title"
+            app:singleLine="false" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

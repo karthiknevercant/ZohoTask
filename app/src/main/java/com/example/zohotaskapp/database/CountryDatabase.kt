@@ -17,13 +17,14 @@ import com.example.zohotaskapp.model.*
     CurrencyConverter::class,
     LanguagesTypeConverter::class,
     RegionalBlocConverter::class,
-    TranslationsConverter::class)
+    TranslationsConverter::class
+)
 abstract class CountryDatabase : RoomDatabase() {
 
     abstract val countriesDao: CountryDao
 
     companion object {
-        const val NAME =  "countries"
+        const val NAME = "countries"
     }
 
 }

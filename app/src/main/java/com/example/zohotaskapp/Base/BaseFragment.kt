@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 open class BaseFragment : Fragment() {
-    fun getActionBar() : ActionBar? {
+    private fun getActionBar(): ActionBar? {
         return (this.activity as AppCompatActivity).supportActionBar
     }
 

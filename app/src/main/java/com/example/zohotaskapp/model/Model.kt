@@ -1,10 +1,12 @@
 package com.example.zohotaskapp.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
+@Keep
 @Entity(tableName = "CountryTable")
 @Parcelize
 data class CountryItem(
@@ -35,6 +37,7 @@ data class CountryItem(
     val translations: Translations?
 ) : Parcelable
 
+@Keep
 @Entity(tableName = "CurrencyTable")
 @Parcelize
 data class Currency(
@@ -44,6 +47,7 @@ data class Currency(
     val symbol: String?
 ) : Parcelable
 
+@Keep
 @Entity(tableName = "LanguageTable")
 @Parcelize
 data class Language(
@@ -54,6 +58,7 @@ data class Language(
     val nativeName: String?
 ) : Parcelable
 
+@Keep
 @Entity(tableName = "RegionalBlocTable")
 @Parcelize
 data class RegionalBloc(
@@ -64,6 +69,7 @@ data class RegionalBloc(
     val otherNames: List<String>?
 ) : Parcelable
 
+@Keep
 @Entity(tableName = "TranslationsTable")
 @Parcelize
 data class Translations(
@@ -79,3 +85,58 @@ data class Translations(
     val nl: String?,
     val pt: String?
 ) : Parcelable
+
+data class WeatherData(
+    val base: String?,
+    val clouds: Clouds?,
+    val cod: Int?,
+    val coord: Coord?,
+    val dt: Int?,
+    val id: Int?,
+    val main: Main?,
+    val name: String?,
+    val sys: Sys?,
+    val timezone: Int?,
+    val visibility: Int?,
+    val weather: List<Weather>?,
+    val wind: Wind?
+)
+
+data class Clouds(
+    val all: Int?
+)
+
+data class Coord(
+    val lat: Double?,
+    val lon: Double?
+)
+
+data class Main(
+    val feelsLike: Double?,
+    val grndLevel: Int?,
+    val humidity: Int?,
+    val pressure: Int?,
+    val seaLevel: Int?,
+    val temp: Double?,
+    val tempMax: Double?,
+    val tempMin: Double?
+)
+
+data class Sys(
+    val country: String?,
+    val sunrise: Int?,
+    val sunset: Int?
+)
+
+data class Weather(
+    val description: String?,
+    val icon: String?,
+    val id: Int?,
+    val main: String?
+)
+
+data class Wind(
+    val deg: Int?,
+    val gust: Double?,
+    val speed: Double?
+)

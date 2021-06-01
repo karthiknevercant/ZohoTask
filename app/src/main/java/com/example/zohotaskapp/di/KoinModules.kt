@@ -17,7 +17,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -39,7 +38,7 @@ val databaseModule = module {
     }
 
     fun provideCountriesDao(database: CountryDatabase): CountryDao {
-        return  database.countriesDao
+        return database.countriesDao
     }
 
     single { provideDatabase(androidApplication()) }
@@ -47,8 +46,8 @@ val databaseModule = module {
 }
 
 val networkModule = module {
-    val connectTimeout : Long = 40// 20s
-    val readTimeout : Long  = 40 // 20s
+    val connectTimeout: Long = 40// 20s
+    val readTimeout: Long = 40 // 20s
 
     fun provideHttpClient(): OkHttpClient {
         val okHttpClientBuilder = OkHttpClient.Builder()
@@ -68,7 +67,6 @@ val networkModule = module {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(client)
             .build()
     }
@@ -81,7 +79,11 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    fun provideCountryRepository(api: CountryApi, context: Context,  dao : CountryDao): CountriesRepositary {
+    fun provideCountryRepository(
+        api: CountryApi,
+        context: Context,
+        dao: CountryDao
+    ): CountriesRepositary {
         return CountriesRepositary.CountriesRepositaryImpl(api, context, dao)
     }
     single { provideCountryRepository(get(), androidContext(), get()) }

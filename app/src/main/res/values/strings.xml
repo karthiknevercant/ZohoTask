@@ -11,4 +11,6 @@
     <string name="no_data">No Data Available</string>
     <string name="countries">Countries</string>
     <string name="country_detail">Country Detail</string>
+    <string name="weather">Weather</string>
+
 </resources>

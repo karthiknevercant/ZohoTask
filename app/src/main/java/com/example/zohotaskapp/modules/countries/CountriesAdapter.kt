@@ -1,17 +1,10 @@
 package com.example.zohotaskapp.modules.countries
 
-import android.graphics.drawable.PictureDrawable
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.RequestBuilder
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.example.zohotaskapp.R
 import com.example.zohotaskapp.databinding.CountryItemLayoutBinding
-import com.example.zohotaskapp.glide.GlideApp
-import com.example.zohotaskapp.glide.SvgSoftwareLayerSetter
 import com.example.zohotaskapp.model.CountryItem
 import com.example.zohotaskapp.utils.loadSvg
 
@@ -39,7 +32,7 @@ class CountriesAdapter(
                 binding.apply {
                     flag?.let {
                         val set = ConstraintSet()
-                        var ratio: String
+                        val ratio: String
                         if (position % 2 == 0) {
                             ratio = String.format("%d:%d", 260, 260)
                         } else {

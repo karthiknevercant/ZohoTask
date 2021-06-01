@@ -10,13 +10,15 @@ import com.google.gson.reflect.TypeToken
 
 class StringListConverters {
     @TypeConverter
-    fun fromString(value: String): List<String> {
-        val listType = object : TypeToken<List<String>>() {}.type
+    fun fromString(value: String): List<String>? {
+        val listType = object : TypeToken<List<String>?>() {}.type
         return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
-    fun fromArrayListToString(list: List<String>): String {
+    fun fromArrayListToString(list: List<String>?): String? {
+        if (list == null)
+            return null
         val gson = Gson()
         return gson.toJson(list)
     }
@@ -24,13 +26,15 @@ class StringListConverters {
 
 class DoubleListConverters {
     @TypeConverter
-    fun fromString(value: String): List<Double> {
-        val listType = object : TypeToken<List<Double>>() {}.type
+    fun fromString(value: String): List<Double>? {
+        val listType = object : TypeToken<List<Double>?>() {}.type
         return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
-    fun fromArrayListToString(list: List<Double>): String {
+    fun fromArrayListToString(list: List<Double>?): String? {
+        if (list == null)
+            return null
         val gson = Gson()
         return gson.toJson(list)
     }
@@ -38,34 +42,37 @@ class DoubleListConverters {
 
 class LanguagesTypeConverter {
     @TypeConverter
-    fun stringToLanguages(json: String): List<Language> {
+    fun stringToLanguages(json: String): List<Language>? {
         val gson = Gson()
-        val type = object : TypeToken<List<Language>>() {}.type
+        val type = object : TypeToken<List<Language>?>() {}.type
         return gson.fromJson(json, type)
     }
 
     @TypeConverter
-    fun languageToString(list: List<Language>): String {
+    fun languageToString(list: List<Language>?): String? {
+        if (list == null)
+            return null
         val gson = Gson()
-        val type = object : TypeToken<List<Language>>() {}.type
+        val type = object : TypeToken<List<Language>?>() {}.type
         return gson.toJson(list, type)
     }
 }
-
 
 class CurrencyConverter {
     @TypeConverter
     fun stringToCurrency(json: String): List<Currency>? {
         val gson = Gson()
-        val type = object : TypeToken<List<Currency>>() {}.type
+        val type = object : TypeToken<List<Currency>?>() {}.type
         return gson.fromJson(json, type)
     }
 
     @TypeConverter
-    fun currencyToString(name: List<Currency>): String {
+    fun currencyToString(list: List<Currency>?): String? {
+        if (list == null)
+            return null
         val gson = Gson()
-        val type = object : TypeToken<List<Currency>>() {}.type
-        return gson.toJson(name, type)
+        val type = object : TypeToken<List<Currency>?>() {}.type
+        return gson.toJson(list, type)
     }
 }
 
@@ -73,30 +80,34 @@ class RegionalBlocConverter {
     @TypeConverter
     fun stringToRegionalBloc(json: String): List<RegionalBloc>? {
         val gson = Gson()
-        val type = object : TypeToken<List<RegionalBloc>>() {}.type
+        val type = object : TypeToken<List<RegionalBloc>?>() {}.type
         return gson.fromJson(json, type)
     }
 
     @TypeConverter
-    fun RegionalBlocToString(name: List<RegionalBloc>): String {
+    fun RegionalBlocToString(list: List<RegionalBloc>?): String? {
+        if (list == null)
+            return null
         val gson = Gson()
-        val type = object : TypeToken<List<RegionalBloc>>() {}.type
-        return gson.toJson(name, type)
+        val type = object : TypeToken<List<RegionalBloc>?>() {}.type
+        return gson.toJson(list, type)
     }
 }
 
 class TranslationsConverter {
     @TypeConverter
-    fun stringToTranslations(json: String): Translations? {
+    fun stringToTranslations(json: String?): Translations? {
         val gson = Gson()
-        val type = object : TypeToken<Translations>() {}.type
+        val type = object : TypeToken<Translations?>() {}.type
         return gson.fromJson(json, type)
     }
 
     @TypeConverter
-    fun translationsToString(translations: Translations): String {
+    fun translationsToString(translations: Translations?): String? {
+        if (translations == null)
+            return null
         val gson = Gson()
-        val type = object : TypeToken<Translations>() {}.type
+        val type = object : TypeToken<Translations?>() {}.type
         return gson.toJson(translations, type)
     }
 }

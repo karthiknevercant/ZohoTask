@@ -1,24 +1,29 @@
 package com.example.zohotaskapp.modules.countries.country_detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.example.zohotaskapp.Base.BaseFragment
 import com.example.zohotaskapp.R
 import com.example.zohotaskapp.databinding.CountryDetailFragmentBinding
 import com.example.zohotaskapp.model.CountryItem
+import com.example.zohotaskapp.modules.countries.CountriesViewModel
 import com.example.zohotaskapp.utils.loadSvg
 import com.google.android.material.chip.Chip
+import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.math.roundToInt
 
 class CountryDetailFragment : BaseFragment() {
 
-    private lateinit var countryDetailsMap: Map<String, String?>
+    val celciusSymbol = "°"
 
+    private var countryDetailsMap = mutableMapOf<String, String>()
     private var countryDetail: CountryItem? = null
-
+    private val viewModel by viewModel<CountriesViewModel>()
     private lateinit var binding: CountryDetailFragmentBinding
-//    private val viewModel by viewModel<CountriesViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,15 +34,41 @@ class CountryDetailFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         countryDetail = getDataFromArgs()
         init(countryDetail)
+
+        if (viewModel.weather.value == null) {
+            countryDetail?.capital?.let {
+                viewModel.getWeather(it)
+            }
+        }
+
+        // Obervers - Update Data to UI
+        viewModel.weather.observe(viewLifecycleOwner, Observer {
+            Log.d("@weather", it.toString())
+
+            it.main?.temp?.let {
+                binding.tvWeather.text = it.roundToInt().toString() + celciusSymbol
+            }
+
+            binding.tvWeatherTitle.visibility = View.VISIBLE
+
+            it.weather?.get(0)?.main.let {
+                binding.tvWeatherText.text = it
+            }
+
+        })
     }
 
     private fun getDataFromArgs(): CountryItem? {
-        var countryItem : CountryItem? = null
+        var countryItem: CountryItem? = null
         arguments?.let {
             countryItem = CountryDetailFragmentArgs.fromBundle(it).countryDetail
         }
@@ -58,18 +89,17 @@ class CountryDetailFragment : BaseFragment() {
             binding.imgvCountry.loadSvg(it)
         }
 
-        countryDetailsMap = mapOf(
-            getString(R.string.short_code) to countryDetail?.alpha3Code,
-            getString(R.string.capital) to countryDetail?.capital,
-            getString(R.string.region) to countryDetail?.region,
-            getString(R.string.sub_region) to countryDetail?.subregion,
-            getString(R.string.population) to countryDetail?.population.toString()
-        )
+        addToMap(getString(R.string.capital), countryDetail?.capital, countryDetailsMap)
+        addToMap(getString(R.string.short_code), countryDetail?.alpha3Code, countryDetailsMap)
+        addToMap(getString(R.string.region), countryDetail?.region, countryDetailsMap)
+        addToMap(getString(R.string.sub_region), countryDetail?.subregion, countryDetailsMap)
+
         val adapter = CountryDetailAdapter(countryDetailsMap)
         binding.rvCountryDetails.adapter = adapter
 
         countryDetail?.languages?.forEach { lang ->
             val chip = Chip(binding.root.context)
+            chip.isClickable = false
             chip.text = lang.name
             binding.chipGroupCountryLangs.addView(chip)
         }
@@ -78,5 +108,11 @@ class CountryDetailFragment : BaseFragment() {
     override fun onDestroy() {
         disableBackButtonOfActionBar()
         super.onDestroy()
+    }
+
+    private fun addToMap(key: String, value: String?, map: MutableMap<String, String>) {
+        value?.let {
+            map.put(key, it)
+        }
     }
 }

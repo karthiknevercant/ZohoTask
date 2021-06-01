@@ -30,7 +30,6 @@ fun AppCompatImageView.loadSvg(url: String) {
     requestBuilder.load(uri).into(this)
 }
 
-
 fun Context.noNetworkConnectivityError(): AppResult.Error {
     return AppResult.Error(Exception(this.resources.getString(R.string.no_network_connectivity)))
 }
