@@ -18,7 +18,8 @@ import kotlin.math.roundToInt
 
 class CountryDetailFragment : BaseFragment() {
 
-    val celciusSymbol = "°"
+    val celciusSymbol = "°C"
+    val kelvin = 273
 
     private var countryDetailsMap = mutableMapOf<String, String>()
     private var countryDetail: CountryItem? = null
@@ -56,7 +57,7 @@ class CountryDetailFragment : BaseFragment() {
             binding.tvWeather.visibility = View.VISIBLE
 
             it.main?.temp?.let { temp ->
-                binding.tvWeather.text = temp.roundToInt().toString() + celciusSymbol
+                binding.tvWeather.text = (temp.roundToInt() - kelvin).toString() + celciusSymbol
             }
 
             it.weather?.get(0)?.main.let { main ->

@@ -76,7 +76,9 @@ class CountriesFragment : BaseFragment() {
 
     fun init() {
         updateActionBarTitle(getString(R.string.countries))
-        viewModel.getCountries()
+
+        if(viewModel.countryList.value == null)
+            viewModel.getCountries()
     }
 
     fun goToDetail(countryDetail: CountryItem) {
