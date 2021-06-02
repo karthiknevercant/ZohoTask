@@ -48,7 +48,7 @@
                 android:id="@+id/cv_imgv"
                 android:layout_width="@dimen/dp_152"
                 android:layout_height="@dimen/dp_152"
-                android:layout_marginVertical="@dimen/dp_25"
+                android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_25"
                 app:cardCornerRadius="@dimen/dp_152"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -64,43 +64,44 @@
 
             </androidx.cardview.widget.CardView>
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/tv_weather_title"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/dp_20"-->
-<!--                android:singleLine="true"-->
-<!--                android:text="@string/weather"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="@dimen/sp_13"-->
-<!--                android:visibility="invisible"-->
-<!--                app:layout_constraintLeft_toLeftOf="@+id/tv_weather"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/cv_imgv" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weather_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:singleLine="true"
+                android:text="@string/weather"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_13"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_weather"
+                app:layout_constraintTop_toTopOf="@+id/cv_imgv" />
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/tv_weather"-->
-<!--                android:layout_width="@dimen/dp_100"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/dp_3"-->
-<!--                android:singleLine="true"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="@dimen/sp_30"-->
-<!--                android:textStyle="bold"-->
-<!--                android:visibility="gone"-->
-<!--                app:layout_constraintLeft_toRightOf="@id/cv_imgv"-->
-<!--                app:layout_constraintRight_toRightOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_weather_title" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weather"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginLeft="@dimen/dp_25"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_30"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintLeft_toRightOf="@id/cv_imgv"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_weather_title" />
 
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:id="@+id/tv_weather_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="@dimen/dp_5"-->
-<!--                android:singleLine="true"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="@dimen/sp_15"-->
-<!--                app:layout_constraintLeft_toLeftOf="@+id/tv_weather"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_weather" />-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weather_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/sp_15"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_weather"
+                app:layout_constraintTop_toBottomOf="@+id/tv_weather" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView

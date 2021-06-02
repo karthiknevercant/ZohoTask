@@ -86,6 +86,7 @@ data class Translations(
     val pt: String?
 ) : Parcelable
 
+@Keep
 data class WeatherData(
     val base: String?,
     val clouds: Clouds?,
@@ -102,15 +103,18 @@ data class WeatherData(
     val wind: Wind?
 )
 
+@Keep
 data class Clouds(
     val all: Int?
 )
 
+@Keep
 data class Coord(
     val lat: Double?,
     val lon: Double?
 )
 
+@Keep
 data class Main(
     val feelsLike: Double?,
     val grndLevel: Int?,
@@ -122,12 +126,14 @@ data class Main(
     val tempMin: Double?
 )
 
+@Keep
 data class Sys(
     val country: String?,
     val sunrise: Int?,
     val sunset: Int?
 )
 
+@Keep
 data class Weather(
     val description: String?,
     val icon: String?,
@@ -135,6 +141,7 @@ data class Weather(
     val main: String?
 )
 
+@Keep
 data class Wind(
     val deg: Int?,
     val gust: Double?,
