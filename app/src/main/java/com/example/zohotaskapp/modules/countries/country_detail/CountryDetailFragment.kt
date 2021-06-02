@@ -1,9 +1,11 @@
 package com.example.zohotaskapp.modules.countries.country_detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.example.zohotaskapp.Base.BaseFragment
 import com.example.zohotaskapp.R
 import com.example.zohotaskapp.databinding.CountryDetailFragmentBinding
@@ -41,15 +43,15 @@ class CountryDetailFragment : BaseFragment() {
         countryDetail = getDataFromArgs()
         init(countryDetail)
 
-        if (viewModel.weather.value == null) {
-            countryDetail?.capital?.let {
-                viewModel.getWeather(it)
-            }
-        }
+//        if (viewModel.weather.value == null) {
+//            if(!countryDetail?.capital.isNullOrBlank()) {
+//                countryDetail?.capital?.let { viewModel.getWeather(it) }
+//            }
+//        }
 
         // Obervers - Update Data to UI
-//        viewModel.weather.observe(viewLifecycleOwner, Observer {
-//            Log.d("@weather", it.toString())
+        viewModel.weather.observe(viewLifecycleOwner, Observer {
+            Log.d("@weather", it.toString())
 
 //            Log.d("@weather", it.toString()
 
@@ -62,7 +64,7 @@ class CountryDetailFragment : BaseFragment() {
 //            it.weather?.get(0)?.main.let {
 //                binding.tvWeatherText.text = it
 //            }
-//        })
+        })
     }
 
     private fun getDataFromArgs(): CountryItem? {
@@ -109,8 +111,8 @@ class CountryDetailFragment : BaseFragment() {
     }
 
     private fun addToMap(key: String, value: String?, map: MutableMap<String, String>) {
-        value?.let {
-            map.put(key, it)
+        if(!value.isNullOrEmpty()) {
+            map.put(key, value)
         }
     }
 }

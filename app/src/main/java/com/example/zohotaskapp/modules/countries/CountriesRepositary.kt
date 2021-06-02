@@ -52,6 +52,7 @@ interface CountriesRepositary {
         override suspend fun getWeather(city: String): AppResult<WeatherData> {
             return if (isNetworkAvailable(context)) {
                 val response = api.getWeather(city, AppConstants.WEATHER_API_KEY)
+                Log.d("weatherresponse", response.toString())
                 handleSuccess(response)
             } else {
                 //no network
