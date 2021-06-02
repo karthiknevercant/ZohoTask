@@ -1,11 +1,9 @@
 package com.example.zohotaskapp.modules.countries.country_detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.example.zohotaskapp.Base.BaseFragment
 import com.example.zohotaskapp.R
 import com.example.zohotaskapp.databinding.CountryDetailFragmentBinding
@@ -14,7 +12,6 @@ import com.example.zohotaskapp.modules.countries.CountriesViewModel
 import com.example.zohotaskapp.utils.loadSvg
 import com.google.android.material.chip.Chip
 import org.koin.android.viewmodel.ext.android.viewModel
-import kotlin.math.roundToInt
 
 class CountryDetailFragment : BaseFragment() {
 
@@ -51,20 +48,21 @@ class CountryDetailFragment : BaseFragment() {
         }
 
         // Obervers - Update Data to UI
-        viewModel.weather.observe(viewLifecycleOwner, Observer {
-            Log.d("@weather", it.toString())
+//        viewModel.weather.observe(viewLifecycleOwner, Observer {
+//            Log.d("@weather", it.toString())
 
-            it.main?.temp?.let {
-                binding.tvWeather.text = it.roundToInt().toString() + celciusSymbol
-            }
+//            Log.d("@weather", it.toString()
 
-            binding.tvWeatherTitle.visibility = View.VISIBLE
-
-            it.weather?.get(0)?.main.let {
-                binding.tvWeatherText.text = it
-            }
-
-        })
+//            it.main?.temp?.let {
+//                binding.tvWeather.text = it.roundToInt().toString() + celciusSymbol
+//            }
+//
+//            binding.tvWeatherTitle.visibility = View.VISIBLE
+//
+//            it.weather?.get(0)?.main.let {
+//                binding.tvWeatherText.text = it
+//            }
+//        })
     }
 
     private fun getDataFromArgs(): CountryItem? {
