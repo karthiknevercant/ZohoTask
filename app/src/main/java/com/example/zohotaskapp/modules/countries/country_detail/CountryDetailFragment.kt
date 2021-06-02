@@ -1,6 +1,5 @@
 package com.example.zohotaskapp.modules.countries.country_detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,17 +38,14 @@ class CountryDetailFragment : BaseFragment() {
         super.onSaveInstanceState(outState)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         countryDetail = getDataFromArgs()
         init(countryDetail)
 
-        if (viewModel.weather.value == null) {
-            if(!countryDetail?.capital.isNullOrEmpty()) {
-                countryDetail?.capital?.let { viewModel.getWeather(it) }
-            }
+        if(!countryDetail?.capital.isNullOrEmpty()) {
+            countryDetail?.capital?.let { viewModel.getWeather(it) }
         }
 
         // Obervers - Update Data to UI

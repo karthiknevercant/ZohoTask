@@ -26,17 +26,13 @@ class CountriesFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = CountriesFragmentBinding.inflate(inflater)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-
-        if (viewModel.countryList.value == null)
-            viewModel.getCountries()
 
         // Obervers - Update Data to UI
         viewModel.filteredCountryList.observe(viewLifecycleOwner, Observer {
@@ -80,6 +76,7 @@ class CountriesFragment : BaseFragment() {
 
     fun init() {
         updateActionBarTitle(getString(R.string.countries))
+        viewModel.getCountries()
     }
 
     fun goToDetail(countryDetail: CountryItem) {
